@@ -1,0 +1,68 @@
+
+
+Observation
+Line 1
+We can simplify the expression ((a&b) | c) ^ d = n as X ^ d = n , where X = ((a&b) | c) here we can see we can make (a&b) to '0' so now X = c ,
+and the smallest pair that give us & = 0 is (1,2) so we know a,b . Now the expressino is also reduced to C ^ d = N such that c and d are distinct and >2
+
+Approach
+Line 1
+So what I did was I ran a loop from 3 to 10^6 for C and for each value , I assume it to be 'C' and find the 'D' if I found D >2 and D != C , we got our values .
+
+by simpligying C ^ D = N --> we get D = C^N so for each of C we find D and check if it is valid
+
+
+
+
+
+#include <bits/stdc++.h>
+#define int long long int
+
+using namespace std;
+
+signed main()
+{
+    int t;
+    cin>>t;
+                                                          
+    int a1=1;
+    
+    while(a1<=t){
+        
+        int n;
+        cin>>n;
+        
+        if(n==0){
+            cout<<4<<" "<<6<<" "<<3<<" "<<7;
+        }else{
+        
+        int a=1;
+        int b=2;
+        int c=0;
+        int d=0;
+        
+        for(int i=3;i<=1000000;i++){
+            int x=n^i;
+            
+            if(x!=i and x>2){
+            
+                c=i;
+                d=x;
+                break;
+            }
+        }
+        
+        if(c==0){
+            cout<<-1;
+        }else{
+        
+        cout<<a<<" "<<b<<" "<<c<<" "<<d;
+        
+        }
+        }
+         cout<<endl;
+         a1++;
+    }
+    
+    return 0;
+}
