@@ -1,0 +1,29 @@
+Given an array arr, return the number of triplets (i, j, k), i < j <= k that satisfy a = arr[i]^arr[i+1]^...^arr[j-1] == arr[j]^arr[j+1]^...^arr[k] = b.
+
+Explanation:1
+It is obvious that every triplet (i, j, k) satisfies arr[i]^arr[i+1]^...^arr[k] == 0, and every pair (i, k) that satisfies arr[i]^arr[i+1]^...^arr[k] == 0 can be splitted into k-i triplets, because when j=i+1, i+2, ..., k, it is easy to find out that a=b
+
+To find out the pairs (i, k) that satisfy arr[i]^arr[i+1]^...^arr[k] == 0, we can use a map to store the xor of prefixes, and when two prefixes are equal, like arr[0]^arr[1]^...^arr[i-1] == arr[0]^arr[1]^...^arr[k], we can conclude that (arr[0]^arr[1]^...^arr[i-1]) ^ (arr[0]^arr[1]^...^arr[k]) = arr[i]^arr[i+1]^...^arr[k].
+
+If we check the prefixes with the same xor-sum every time, then the time complexity is O(n^2), which is acceptable. However, because only the sum of starts of the prefixes and the number of prefixes are important, we can optimize the solution to O(n).
+
+
+
+EXPLANATION:2
+you have an array : a[0], a[1].... a[n - 1]
+
+First things first:
+We need to understand small fact, if xor(a[0....i]) has appeared before at index j then it means xor(a[j+1.....i]) = 0
+Another fact, if xor(a[i....j]) = 0 so this subarray will add (j - i - 1) to the answer.
+
+Now say currently we are at index i and let xor([0...i]) = x.
+
+Now say x has occurred 3 times previously at indices (i1, i2, i3)
+
+our answer for i will be = (i - i1 - 1) + (i - i2 - 1) + (i - i3 - 1)
+
+if you simplify this further you get f * i - (i1 + i2 + i3) - f = (i - 1) * f - (i1 + i2 + i3)
+
+f = no. of times x has occurred previously.
+
+(i1 + i2 + i3) = sum of all the indices where x has occurred previously.
