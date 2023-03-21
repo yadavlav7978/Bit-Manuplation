@@ -1,0 +1,47 @@
+class Solution {
+public:
+
+unordered_map<int,bool>dp;
+
+bool call(int max,int ttl,int key){
+
+    if(ttl<=0) return false;
+
+    if(dp[key]) return dp[key];
+
+
+     for(int i=1;i<=max;i++){
+       
+       int mask=1<<(i-1);
+
+        if((mask&key)!=0) continue;
+        
+         key|=mask;
+
+         if(!call(max,ttl-i,key)){
+             key^=mask;
+             dp[key]=true;
+             return true;
+         }
+         key^=mask;
+
+     }
+     dp[key]=false;
+
+     return false;
+
+}
+
+    bool canIWin(int max, int ttl) {
+        
+        int sum=(max*(max+1))/2;
+
+        if(sum<ttl) return false;
+
+        if(max>=ttl) return true;
+
+        dp.clear();
+    
+        return call(max,ttl,0);
+    }
+};
